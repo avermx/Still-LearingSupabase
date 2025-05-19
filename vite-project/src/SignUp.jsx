@@ -1,22 +1,70 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Eye, EyeOff } from "lucide-react";
+import { supabase } from './Supabase-client'
+import { Link, useNavigate } from "react-router-dom"
+
 
 const SignUp = () => {
+    const [isSignedUp, setisSignedUp] = useState(false)
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
-    const handleSubmit = (e) => {
-        e.preventDefualt()
+    const navigate = useNavigate()
+    const handleSubmit = async (e) => {
+        e.preventDefault()
 
+        const { data, error } = await supabase.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+                emailRedirectTo: 'http://localhost:5173/signin'
+            }
+        });
+        if (data) {
+            setTimeout(() => {
+                setisSignedUp(true)
+            }, 500)
+        }
+        if (error) {
+            console.log("ye hai error", error)
+
+        }
+            console.log(data)
+            
     }
 
-    console.log(email,password,name);
-    
+    const handleSignIn = () => {
+        navigate('/signin')
+    }
+
+
     return (
+
         <div>
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-200 to-purple-300 px-4">
+            {isSignedUp ? <div className="flex items-center justify-center min-h-screen bg-[#0D1117]">
+                <div className="bg-[#161B22] rounded-lg p-8 shadow-lg text-center w-full max-w-md">
+                    <div className="flex justify-center mb-4">
+                        <svg
+                            className="w-12 h-12 text-green-500"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            viewBox="0 0 24 24"
+                        >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <h2 className="text-white text-2xl font-semibold">Account Created</h2>
+                    <p className="text-gray-400 mt-2">{`Your account has been created successfully, ${name}`}
+
+                    </p>
+                    <button onClick={handleSignIn} className="mt-6 bg-white text-black font-medium py-2 px-4 rounded-md hover:bg-gray-200 transition">
+                        Go to Sign In
+                    </button>
+                </div>
+            </div> : <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-200 to-purple-300 px-4">
                 <motion.div
                     className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md"
                     initial={{ opacity: 0, y: 50 }}
@@ -75,10 +123,11 @@ const SignUp = () => {
                     </form>
 
                     <p className="text-center text-sm text-gray-500 mt-4">
-                        Already have an account? <a href="#" className="text-indigo-600 hover:underline">Log in</a>
+                        Already have an account? <Link to={'/signin'}><span  className="text-indigo-600 hover:underline">Log in</span></Link>
                     </p>
                 </motion.div>
-            </div>
+            </div>}
+
         </div>
     )
 }
