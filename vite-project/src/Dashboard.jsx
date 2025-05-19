@@ -6,7 +6,7 @@ const Dashboard = () => {
   const signOut = async () => {
     const { error } = await supabase.auth.signOut()
     if (error) throw error;
-    navigate('/')
+    navigate('/signin')
   }
   return (
     <div className="bg-black text-white h-screen w-full flex flex-col gap-2">
