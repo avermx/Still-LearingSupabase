@@ -19,7 +19,7 @@ const SignIn = () => {
 
     if (data) {
      navigate('/dashboard')
-     return null;
+     
     }
 
     if (error) {
@@ -28,7 +28,7 @@ const SignIn = () => {
       console.error("sign in error", error.message)
       return;
     }
-    console.log(data)
+    
   }
 
   return (
