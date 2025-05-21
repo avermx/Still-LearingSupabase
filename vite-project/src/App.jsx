@@ -6,36 +6,31 @@ import { useEffect, useState } from "react";
 import { supabase } from "./Supabase-client";
 import Wrapper from "./Wrapper";
 
-
 function App() {
   const [session, setSession] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  const fetchSession = async () => {
-    const { data, error } = await supabase.auth.getSession();
-    if (error) {
-      console.error("Session fetch error:", error);
-    }
-    setSession(data.session); // ✅ get actual session
-    setLoading(false); // ✅ mark loading complete
-  };
 
   useEffect(() => {
+    // Fetch initial session
+    const fetchSession = async () => {
+      const { data, error } = await supabase.auth.getSession();
+      if (error) {
+        console.error("Session fetch error:", error);
+      }
+      setSession(data.session);
+    };
+
     fetchSession();
 
-    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+    // Subscribe to auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
-      setLoading(false);
     });
 
+    // Cleanup on unmount
     return () => {
-      authListener.subscription.unsubscribe();
+      subscription.unsubscribe();
     };
   }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   const router = createBrowserRouter([
     {
@@ -44,11 +39,11 @@ function App() {
     },
     {
       path: "/dashboard",
-      element: 
+      element: (
         <Wrapper session={session}>
-          <Dashboard  />
+          <Dashboard />
         </Wrapper>
-      
+      ),
     },
     {
       path: "/signin",
