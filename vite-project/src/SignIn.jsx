@@ -7,7 +7,7 @@ const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
-  const [isloggedin , setisLoggedIn] = useState(false)
+  const [invalid, setInvalid] = useState(false)
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
@@ -15,20 +15,29 @@ const SignIn = () => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
+
     });
 
-    if (data) {
-     navigate('/dashboard')
+
+    if (error) {
+      setInvalid(true)
+      setMessage(error.message)
+      setEmail('')
+      setPassword('')
+      
+    } else if (data && data.user) {
+      navigate('/dashboard')
+      setEmail('')
+      setPassword('')
+     
+    } else {
+      setInvalid(true)
+      setMessage('Unexpected response. Please try again.')
+            setEmail('')
+      setPassword('')
      
     }
 
-    if (error) {
-      setisLoggedIn(true)
-      setMessage(error.message)
-      console.error("sign in error", error.message)
-      return;
-    }
-    
   }
 
   return (
@@ -37,7 +46,7 @@ const SignIn = () => {
         <div className="bg-[#161B22] p-8 rounded-lg shadow-lg w-full max-w-md text-white">
           <h2 className="text-2xl font-bold text-center mb-1">Sign in to Task Master</h2>
 
-          {isloggedin ? <p className="text-center text-red-500 text-sm mb-1 ">{message}</p> : <p className="text-center text-gray-400 text-sm mb-6">
+          {invalid ? <p className="text-center text-red-600 text-xl mb-6" >{message}</p> : <p className="text-center text-gray-400 text-sm mb-6">
             Enter your email and password to access your tasks
           </p>}
 

@@ -44,11 +44,11 @@ function App() {
     },
     {
       path: "/dashboard",
-      element: (
+      element: 
         <Wrapper session={session}>
           <Dashboard  />
         </Wrapper>
-      ),
+      
     },
     {
       path: "/signin",
