@@ -1,24 +1,23 @@
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom"
 import { UserAuth } from "./AuthContext";
-
-
-const SignUp = () => {
+const SignIn = () => {
 
     const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const { session, signUpNewUser } = UserAuth()
+    const { session, signInUser} = UserAuth()
 
     console.log(session)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const result = await signUpNewUser(email, password);
+            const result = await signInUser(email, password);
             if (result.success) {
                 navigate('/dashboard');
             }
@@ -39,19 +38,8 @@ const SignUp = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <h2 className="text-3xl font-bold mb-6 text-center text-indigo-600">Sign Up</h2>
+                    <h2 className="text-3xl font-bold mb-6 text-center text-indigo-600">Sign In</h2>
                     <form className="space-y-5" onSubmit={handleSubmit}>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Name</label>
-                            <input
-                                type="text"
-                                className="mt-1 block w-full p-3 border border-gray-300 rounded-xl shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                                placeholder="Your name"
-                                required
-
-                            />
-                        </div>
-
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Email</label>
                             <input
@@ -86,13 +74,11 @@ const SignUp = () => {
                             type="submit"
                             className="w-full bg-indigo-600 text-white font-semibold py-3 rounded-xl hover:bg-indigo-700 transition-all"
                         >
-                            Create Account
+                            SignIn
                         </button>
                     </form>
 
-                    <p className="text-center text-sm text-gray-500 mt-4">
-                        Already have an account? <Link to={'/signin'}><span className="text-indigo-600 hover:underline">Log in</span></Link>
-                    </p>
+                    
                 </motion.div>
             </div>
 
@@ -100,4 +86,6 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
+
+
+export default SignIn
