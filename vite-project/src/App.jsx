@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignUp from "./SignUp";
 import Dashboard from "./Dashboard";
 import SignIn from "./SignIn";
+import { Wrapper } from "./Wrapper";
 
 
 function App() {
@@ -14,11 +15,17 @@ function App() {
     },
     {
       path: "/dashboard",
-      element: <Dashboard/>,
+      element: (
+        <Wrapper>
+          <Dashboard />{' '}
+        </Wrapper >
+      )
+
     },
     {
       path: "/signin",
-      element: <SignIn/>,
+
+      element: <SignIn />,
     }
   ]);
 

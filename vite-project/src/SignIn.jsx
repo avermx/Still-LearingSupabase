@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Eye, EyeOff } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { UserAuth } from "./AuthContext";
 const SignIn = () => {
 
@@ -10,7 +10,7 @@ const SignIn = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const { session, signInUser} = UserAuth()
+    const { session, signInUser, Error } = UserAuth()
 
     console.log(session)
 
@@ -42,6 +42,9 @@ const SignIn = () => {
                     <form className="space-y-5" onSubmit={handleSubmit}>
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Email</label>
+                            <p className="text-center text-xl text-red-500">
+                                {Error && Error}
+                            </p>
                             <input
                                 type="email"
                                 className="mt-1 block w-full p-3 border border-gray-300 rounded-xl shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
@@ -78,8 +81,9 @@ const SignIn = () => {
                         </button>
                     </form>
 
-                    
+
                 </motion.div>
+
             </div>
 
         </div>
