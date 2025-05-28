@@ -34,23 +34,23 @@ const SignUp = () => {
 
   <h1 class="text-4xl font-bold border-b-4 border-white pb-2 mb-8 uppercase">Sign Up</h1>
 
-  <form class="border-4 border-white p-8 w-full max-w-md flex flex-col gap-6">
+  <form class="border-4 border-white p-8 w-full max-w-md flex flex-col gap-6" onSubmit={handleSubmit}>
     
     <div>
       <label for="name" class="block text-sm font-bold uppercase mb-1">Name</label>
-      <input type="text" id="name" name="name" required
+      <input type="text" id="name" name="name" required 
         class="w-full p-3 border-2 border-white bg-black text-white focus:outline-none" />
     </div>
 
     <div>
       <label for="email" class="block text-sm font-bold uppercase mb-1">Email</label>
-      <input type="email" id="email" name="email" required
+      <input type="email" id="email" name="email" required onChange={(e)=>setEmail(e.target.value)}
         class="w-full p-3 border-2 border-white bg-black text-white focus:outline-none" />
     </div>
 
     <div>
       <label for="password" class="block text-sm font-bold uppercase mb-1">Password</label>
-      <input type="password" id="password" name="password" required
+      <input type="password" id="password" name="password" required onChange={(e)=>setPassword(e.target.value)}
         class="w-full p-3 border-2 border-white bg-black text-white focus:outline-none" />
     </div>
 
@@ -59,7 +59,7 @@ const SignUp = () => {
       Create Account
     </button>
 
-    <p class="text-xs text-center mt-2 text-white">NO SPAM. EVER.</p>
+    <p class="text-xs text-center mt-2 text-white">Sign In</p>
 
   </form>
 

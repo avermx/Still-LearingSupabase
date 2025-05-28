@@ -35,9 +35,9 @@ const SignIn = () => {
     // }
 
     return (
-        <div className=" h-screen flex items-center justify-center px-4">
-            <Card className="w-[30%] h-[70%]">
-                <Flex direction='column' gap='4' align='center' className="flex content-center">
+        <div className=" h-screen flex items-center justify-center px-4 bg-[url(/itachi.png)] bg-cover bg-center" >
+            <Card className="w-[30%] h-[70%]" align='center'>
+                <Flex direction='column' gap='4' align='center' justify='center'>
                     <Heading align='center'> Sign In</Heading>
                     <Text size='4' align='center' color='gray'>
                         Welcome Back. Please enter your credentials.
