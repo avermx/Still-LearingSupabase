@@ -8,7 +8,6 @@ import { UserAuth } from "./AuthContext";
 const SignUp = () => {
 
     const navigate = useNavigate()
-    const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const { session, signUpNewUser } = UserAuth()
@@ -27,6 +26,10 @@ const SignUp = () => {
 
         }
 
+    }
+
+    const handleSign = () =>{
+      navigate('/signin')
     }
 
     return (
@@ -59,7 +62,7 @@ const SignUp = () => {
       Create Account
     </button>
 
-    <p class="text-xs text-center mt-2 text-white">Sign In</p>
+    <button class="text-xs text-center mt-2 text-white" onClick={handleSign}>Sign In</button>
 
   </form>
 

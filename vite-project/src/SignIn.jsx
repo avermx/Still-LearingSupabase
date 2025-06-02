@@ -1,63 +1,72 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { UserAuth } from "./AuthContext";
-import {
-    Card,
-    Text,
-    TextField,
-    Button,
-    Flex,
-    Heading,
-} from '@radix-ui/themes';
-import { Columns } from "lucide-react";
 const SignIn = () => {
 
-    // const navigate = useNavigate()
-    // const [showPassword, setShowPassword] = useState(false);
-    // const [email, setEmail] = useState('')
-    // const [password, setPassword] = useState('')
-    // const { session, signInUser, Error } = UserAuth()
+    const navigate = useNavigate()
+    const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const { session, signInUser, Error } = UserAuth()
 
-    // console.log(session)
+    console.log(session)
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault()
-    //     try {
-    //         const result = await signInUser(email, password);
-    //         if (result.success) {
-    //             navigate('/dashboard');
-    //         }
-    //     } catch (err) {
-    //         console.log('error ', err)
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            const result = await signInUser(email, password);
+            if (result.success) {
+                navigate('/dashboard');
+            }
+        } catch (err) {
+            console.log('error ', err)
 
-    //     }
+        }
 
-    // }
+    }
 
     return (
-        <div className=" h-screen flex items-center justify-center px-4 bg-[url(/itachi.png)] bg-cover bg-center" >
-            <Card className="w-[30%] h-[70%]" align='center'>
-                <Flex direction='column' gap='4' align='center' justify='center'>
-                    <Heading align='center'> Sign In</Heading>
-                    <Text size='4' align='center' color='gray'>
-                        Welcome Back. Please enter your credentials.
-                    </Text>
+        <div class="bg-black text-white font-mono flex flex-col items-center p-10 min-h-screen">
 
-                    <form className="flex flex-col w-[80%] gap-5 " >
-                        <TextField.Root placeholder="Email" >
-                            <TextField.Slot>
+  <h1 class="text-4xl font-bold border-b-4 border-white pb-2 mb-8 uppercase">Sign In</h1>
 
-                            </TextField.Slot>
-                        </TextField.Root>
-                        <TextField.Root placeholder="Password" >
-                            <TextField.Slot>
+  <form class="border-4 border-white p-8 w-full max-w-md flex flex-col gap-6">
+    
+    <div>
+      <label for="email" class="block text-sm font-bold uppercase mb-1">Email</label>
+      <input type="email" id="email" name="email" required
+        class="w-full p-3 border-2 border-white bg-black text-white focus:outline-none" />
+    </div>
 
-                            </TextField.Slot>
-                        </TextField.Root>
-                    </form>
-                </Flex>
-            </Card>
-        </div>
+    <div>
+      <label for="password" class="block text-sm font-bold uppercase mb-1">Password</label>
+      <input type="password" id="password" name="password" required
+        class="w-full p-3 border-2 border-white bg-black text-white focus:outline-none" />
+      
+      
+      <div class="mt-2 text-right">
+        <a href="/forgot-password.html" class="text-xs text-white underline hover:text-gray-300">
+          Forgot Password?
+        </a>
+      </div>
+    </div>
+
+    <button type="submit"
+      class="bg-white text-black p-3 font-bold uppercase hover:bg-black hover:text-white hover:border-2 hover:border-white transition-all duration-150">
+      Sign In
+    </button>
+
+    <p class="text-xs text-center mt-2 text-white">Welcome back, creative human.</p>
+  </form>
+
+
+  <a href="/"
+    class="mt-6 bg-black border-2 border-white text-white p-3 font-bold uppercase hover:bg-white hover:text-black transition-all duration-150">
+    Create New Account
+  </a>
+
+
+</div>
     )
 }
 
